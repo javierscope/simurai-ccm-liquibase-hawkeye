@@ -1,0 +1,2 @@
+APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
+simurai-resources,default,master,server.port,8092

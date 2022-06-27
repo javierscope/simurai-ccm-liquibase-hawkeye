@@ -1,0 +1,57 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="rzadpide"
+		id="load_application_properties" runOnChange="true">
+		<delete tableName="app_properties">
+			<where>application='application'</where>
+		</delete>
+		<loadData tableName="app_properties"
+			file="src/main/resources/changelog/application.csv"
+			primaryKey="id">
+			<column name="application" type="STRING" />
+			<column name="profile" type="STRING" />
+			<column name="label" type="STRING" />
+			<column name="config_key" type="STRING" />
+			<column name="config_value" type="STRING" />
+			<column name="description" type="STRING" />
+		</loadData>
+	</changeSet>
+	
+    <changeSet author="rzadpide"
+               id="load_simurai_resources_properties" runOnChange="true">
+        <delete tableName="app_properties">
+            <where>application='simurai-resources'</where>
+        </delete>
+
+        <loadData tableName="app_properties"
+                  file="src/main/resources/changelog/simurai-resources.csv">
+            <column name="application" type="STRING"/>
+            <column name="profile" type="STRING"/>
+            <column name="label" type="STRING"/>
+            <column name="config_key" type="STRING"/>
+            <column name="config_value" type="STRING"/>
+            <column name="description" type="STRING"/>
+        </loadData>
+    </changeSet>
+	
+    <changeSet author="rzadpide"
+               id="load_simurai_orchestrator_properties" runOnChange="true">
+        <delete tableName="app_properties">
+            <where>application='simurai-orchestrator'</where>
+        </delete>
+
+        <loadData tableName="app_properties"
+                  file="src/main/resources/changelog/simurai-orchestrator.csv">
+            <column name="application" type="STRING"/>
+            <column name="profile" type="STRING"/>
+            <column name="label" type="STRING"/>
+            <column name="config_key" type="STRING"/>
+            <column name="config_value" type="STRING"/>
+            <column name="description" type="STRING"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
