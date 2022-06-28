@@ -8,4 +8,4 @@ simurai-orchestrator,default,master,simurai.brokers[0].url,tcp://127.0.0.1:61616
 simurai-orchestrator,default,master,simurai.brokers[0].connectionFactoryName,activemq_cf1
 
 simurai-orchestrator,default,master,simurai.events[0].name,DOOR_STATUS_REQUEST
-simurai-orchestrator,default,master,simurai.events[0].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}
+simurai-orchestrator,default,master,simurai.events[0].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
