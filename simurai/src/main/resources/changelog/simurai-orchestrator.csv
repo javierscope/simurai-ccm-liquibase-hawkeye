@@ -1,5 +1,6 @@
 APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
 simurai-orchestrator,default,master,server.port,8093
+simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/*
 simurai-orchestrator,default,master,simurai.resourceURL,http://localhost:8092/resources?appName=simurai-orchestrator
 
 simurai-orchestrator,default,master,simurai.brokers[0].jmsProvider,ACTIVEMQ
