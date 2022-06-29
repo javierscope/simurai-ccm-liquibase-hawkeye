@@ -9,3 +9,18 @@ simurai-orchestrator,default,master,simurai.brokers[0].connectionFactoryName,act
 
 simurai-orchestrator,default,master,simurai.events[0].name,DOOR_STATUS_REQUEST
 simurai-orchestrator,default,master,simurai.events[0].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.events[1].name,BATCH_DELIVERED
+simurai-orchestrator,default,master,simurai.events[1].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.events[2].name,DISPENSE_TERMINATED
+simurai-orchestrator,default,master,simurai.events[2].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.events[3].name,DOOR_MOTION
+simurai-orchestrator,default,master,simurai.events[3].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.events[4].name,EXTRACTION_REQUEST
+simurai-orchestrator,default,master,simurai.events[4].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.events[5].name,FAILURE_RESOLUTION
+simurai-orchestrator,default,master,simurai.events[5].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
