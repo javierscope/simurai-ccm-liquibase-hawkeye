@@ -3,24 +3,53 @@ simurai-orchestrator,default,master,server.port,8093
 simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/*
 simurai-orchestrator,default,master,simurai.resourceURL,http://localhost:8092/resources?appName=simurai-orchestrator
 
-simurai-orchestrator,default,master,simurai.brokers[0].jmsProvider,ACTIVEMQ
-simurai-orchestrator,default,master,simurai.brokers[0].url,tcp://127.0.0.1:61616
-simurai-orchestrator,default,master,simurai.brokers[0].connectionFactoryName,activemq_cf1
+simurai-orchestrator,default,master,simurai.amqpBrokers[0].connectionFactoryName,activemq_cf1
+simurai-orchestrator,default,master,simurai.amqpBrokers[0].hostUrl,tcp://127.0.0.1:61616
+
+simurai-orchestrator,default,master,simurai.endpoints[0].name,restEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[0].type,POST
+simurai-orchestrator,default,master,simurai.endpoints[0].uri,http://localhost:8090/xyz?requestparam=2123
+
+simurai-orchestrator,default,master,simurai.endpoints[1].name,activeMqEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[1].type,QUEUE
+simurai-orchestrator,default,master,simurai.endpoints[1].uri,activemq:queue:amqSrc1?connectionFactory=activemq_cf1&disableReplyTo=true&preserveMessageQos=true
+
+simurai-orchestrator,default,master,simurai.endpoints[2].name,kafkaEndpointLocalHost
+simurai-orchestrator,default,master,simurai.endpoints[2].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[2].uri,kafka:kafkaSrc1?brokers=localhost:9092
+
+simurai-orchestrator,default,master,simurai.endpoints[3].name,kafkaEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[3].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[3].uri,kafka:kafkaSrc1?brokers=157.89.798.67:9092
+
+simurai-orchestrator,default,master,simurai.endpoints[4].name,simurai
+simurai-orchestrator,default,master,simurai.endpoints[4].type,POST
+simurai-orchestrator,default,master,simurai.endpoints[4].uri,/execute
+
+simurai-orchestrator,default,master,simurai.categories[0],cat1
+simurai-orchestrator,default,master,simurai.categories[1],cat2
 
 simurai-orchestrator,default,master,simurai.events[0].name,DOOR_STATUS_REQUEST
-simurai-orchestrator,default,master,simurai.events[0].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+simurai-orchestrator,default,master,simurai.events[0].alias,DOOR_STATUS_REQUEST_V1
+simurai-orchestrator,default,master,simurai.events[0].format,JSON
+simurai-orchestrator,default,master,simurai.events[0].category,cat1
 
-simurai-orchestrator,default,master,simurai.events[1].name,BATCH_DELIVERED
-simurai-orchestrator,default,master,simurai.events[1].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+simurai-orchestrator,default,master,simurai.events[1].name,DOOR_MOTION
+simurai-orchestrator,default,master,simurai.events[1].alias,DOOR_MOTION_V1
+simurai-orchestrator,default,master,simurai.events[1].format,XML
+simurai-orchestrator,default,master,simurai.events[1].category,cat1
 
-simurai-orchestrator,default,master,simurai.events[2].name,DISPENSE_TERMINATED
-simurai-orchestrator,default,master,simurai.events[2].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+simurai-orchestrator,default,master,simurai.events[2].name,kafkaEvent
+simurai-orchestrator,default,master,simurai.events[2].alias,kafkaEvent_V1
+simurai-orchestrator,default,master,simurai.events[2].format,XML
+simurai-orchestrator,default,master,simurai.events[2].category,cat1
 
-simurai-orchestrator,default,master,simurai.events[3].name,DOOR_MOTION
-simurai-orchestrator,default,master,simurai.events[3].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,simurai
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[0].eventAlias,DOOR_STATUS_REQUEST_V1
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[0].targetUrl,kafkaEndpointLocalHost
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[1].eventAlias,DOOR_MOTION_V1
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[1].targetUrl,activeMqEndpoint
 
-simurai-orchestrator,default,master,simurai.events[4].name,EXTRACTION_REQUEST
-simurai-orchestrator,default,master,simurai.events[4].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
-
-simurai-orchestrator,default,master,simurai.events[5].name,FAILURE_RESOLUTION
-simurai-orchestrator,default,master,simurai.events[5].target,activemq:queue:mfc_2142_US?connectionFactory=${simurai.brokers[0].connectionFactoryName}&disableReplyTo=true&preserveMessageQos=true
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointname,kafkaEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].events[0].eventAlias,kafkaEvent_V1
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].events[0].targetUrl,restEndpoint
