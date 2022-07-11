@@ -1,10 +1,10 @@
 APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
 simurai-orchestrator,default,master,server.port,8093
 simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/*
-simurai-orchestrator,default,master,simurai.resourceURL,http://localhost:8092/resources?appName=simurai-orchestrator
+simurai-orchestrator,default,master,simurai.resourceURL,http://simurai-resources:8092/resources?appName=simurai-orchestrator
 
 simurai-orchestrator,default,master,simurai.brokers[0].jmsProvider,ACTIVEMQ
-simurai-orchestrator,default,master,simurai.brokers[0].url,tcp://127.0.0.1:61616
+simurai-orchestrator,default,master,simurai.brokers[0].url,tcp://activemq:61616
 simurai-orchestrator,default,master,simurai.brokers[0].connectionFactoryName,activemq_cf1
 
 simurai-orchestrator,default,master,simurai.events[0].name,DOOR_STATUS_REQUEST
