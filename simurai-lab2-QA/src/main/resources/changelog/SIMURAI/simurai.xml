@@ -10,7 +10,7 @@
 			<where>application='application'</where>
 		</delete>
 		<loadData tableName="app_properties"
-			file="src/main/resources/changelog/application.csv"
+			file="src/main/resources/changelog/SIMURAI/application.csv"
 			primaryKey="id">
 			<column name="application" type="STRING" />
 			<column name="profile" type="STRING" />
@@ -28,7 +28,7 @@
         </delete>
 
         <loadData tableName="app_properties"
-                  file="src/main/resources/changelog/simurai-resources.csv">
+                  file="src/main/resources/changelog/SIMURAI/simurai-resources.csv">
             <column name="application" type="STRING"/>
             <column name="profile" type="STRING"/>
             <column name="label" type="STRING"/>
@@ -45,7 +45,7 @@
         </delete>
 
         <loadData tableName="app_properties"
-                  file="src/main/resources/changelog/simurai-orchestrator.csv">
+                  file="src/main/resources/changelog/SIMURAI/simurai-orchestrator.csv">
             <column name="application" type="STRING"/>
             <column name="profile" type="STRING"/>
             <column name="label" type="STRING"/>
