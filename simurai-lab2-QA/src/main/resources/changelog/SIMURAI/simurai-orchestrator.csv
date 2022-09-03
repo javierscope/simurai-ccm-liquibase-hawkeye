@@ -3,13 +3,13 @@ simurai-orchestrator,default,master,server.port,8093
 simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/*
 
 simurai-orchestrator,default,master,environment,stage
-simurai-orchestrator,default,master,facilityNum,2142
+simurai-orchestrator,default,master,facilityNum,5505
 simurai-orchestrator,default,master,stage,stage
 
 simurai-orchestrator,default,master,simurai.resourceURL,http://simurai-resources:8092/resources?appName=simurai-orchestrator
-simurai-orchestrator,default,master,kafka.broker.url,hawk-test-kafka
+simurai-orchestrator,default,master,kafka.broker.url,hawk-test-kafka.lab2.alpha.alertinnovation.com
 simurai-orchestrator,default,master,kafka.broker.port,9092
-simurai-orchestrator,default,master,kafka.broker.options.send,groupId=alert.${environment}.0${facilityNum}&autoCommitEnable=false&maxPollIntervalMs=300000&maxPollRecords=1&requestTimeoutMs=60000&retryBackoffMs=60000&heartbeatIntervalMs=10000&sessionTimeoutMs=30000&headerSerializer=#stringToByteHeaderSerializerCustom&securityProtocol=SSL&sslTruststoreLocation=/appl/ca/kafka_alert/kafka.client.truststore.jks&sslTruststorePassword=kafkastore1!&sslKeystoreLocation=/appl/ca/kafka_alert/kafka.client.keystore.jks&sslKeystorePassword=kafkastore1!
+simurai-orchestrator,default,master,kafka.broker.options.send,groupId=alert.${environment}.${facilityNum}&autoCommitEnable=false&maxPollIntervalMs=300000&maxPollRecords=1&requestTimeoutMs=60000&retryBackoffMs=60000&heartbeatIntervalMs=10000&sessionTimeoutMs=30000&headerSerializer=#stringToByteHeaderSerializerCustom&securityProtocol=SSL&sslTruststoreLocation=/appl/secrets/kafka.client.truststore.jks&sslTruststorePassword=kafkastore1!&sslKeystoreLocation=/appl/secrets/kafka.user.keystore.jks&sslKeystorePassword=kafkastore1!
 
 simurai-orchestrator,default,master,simurai.endpoints[0].name,batchStatusDeliveredEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[0].type,TOPIC
