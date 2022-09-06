@@ -11,93 +11,96 @@ simurai-orchestrator,default,master,kafka.broker.url,hawk-test-kafka.lab2.alpha.
 simurai-orchestrator,default,master,kafka.broker.port,9092
 simurai-orchestrator,default,master,kafka.broker.options.send,groupId=alert.${environment}.${facilityNum}&autoCommitEnable=false&maxPollIntervalMs=300000&maxPollRecords=1&requestTimeoutMs=60000&retryBackoffMs=60000&heartbeatIntervalMs=10000&sessionTimeoutMs=30000&headerSerializer=#stringToByteHeaderSerializerCustom&securityProtocol=SSL&sslTruststoreLocation=/appl/secrets/kafka.client.truststore.jks&sslTruststorePassword=kafkastore1!&sslKeystoreLocation=/appl/secrets/kafka.user.keystore.jks&sslKeystorePassword=kafkastore1!
 
-simurai-orchestrator,default,master,simurai.endpoints[0].name,batchStatusDeliveredEndpoint
-simurai-orchestrator,default,master,simurai.endpoints[0].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[0].uri,kafka:hawkeye-${stage}-${facilityNum}-batch-status-delivered?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-
-simurai-orchestrator,default,master,simurai.endpoints[1].name,simurai
-simurai-orchestrator,default,master,simurai.endpoints[1].type,POST
+simurai-orchestrator,default,master,simurai.endpoints[0].name,triggerEventEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[0].type,POST
+simurai-orchestrator,default,master,simurai.endpoints[0].uri,events
+simurai-orchestrator,default,master,simurai.endpoints[1].name,fetchEventEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[1].type,GET
 simurai-orchestrator,default,master,simurai.endpoints[1].uri,events
-
-simurai-orchestrator,default,master,simurai.endpoints[2].name,doorStatusRequestEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[2].name,batchStatusDeliveredEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[2].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[2].uri,kafka:hawkeye-${stage}-${facilityNum}-door-status-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-
-simurai-orchestrator,default,master,simurai.endpoints[3].name,dispenseTerminatedEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[2].uri,kafka:hawkeye-${stage}-${facilityNum}-batch-status-delivered?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[3].name,doorStatusRequestEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[3].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[3].uri,kafka:hawkeye-${stage}-${facilityNum}-dispense-terminated?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-
-simurai-orchestrator,default,master,simurai.endpoints[4].name,doorMotionEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[3].uri,kafka:hawkeye-${stage}-${facilityNum}-door-status-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[4].name,dispenseTerminatedEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[4].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[4].uri,kafka:hawkeye-${stage}-${facilityNum}-door-motion?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-
-simurai-orchestrator,default,master,simurai.endpoints[5].name,orderExtractRequestEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[4].uri,kafka:hawkeye-${stage}-${facilityNum}-dispense-terminated?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[5].name,doorMotionEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[5].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[5].uri,kafka:hawkeye-${stage}-${facilityNum}-order-extract-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-
-simurai-orchestrator,default,master,simurai.endpoints[6].name,failureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[5].uri,kafka:hawkeye-${stage}-${facilityNum}-door-motion?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[6].name,orderExtractRequestEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[6].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[6].uri,kafka:hawkeye-${stage}-${facilityNum}-failure-resolution?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[6].uri,kafka:hawkeye-${stage}-${facilityNum}-order-extract-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[7].name,failureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[7].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[7].uri,kafka:hawkeye-${stage}-${facilityNum}-failure-resolution?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
 
-simurai-orchestrator,default,master,simurai.inboundEndpoints[0],restEndpoint
-simurai-orchestrator,default,master,simurai.inboundEndpoints[1],kafkaEndpointLocalHost
-
-simurai-orchestrator,default,master,simurai.categories[0],Automated Dispense
-
+simurai-orchestrator,default,master,simurai.events[0].id,1
+simurai-orchestrator,default,master,simurai.events[0].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[0].name,DOOR_STATUS_REQUEST
-simurai-orchestrator,default,master,simurai.events[0].alias,DOOR_STATUS_REQUEST_V8
 simurai-orchestrator,default,master,simurai.events[0].format,JSON
-simurai-orchestrator,default,master,simurai.events[0].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[0].source,Walmart
 simurai-orchestrator,default,master,simurai.events[0].usage,Request Door status
 simurai-orchestrator,default,master,simurai.events[0].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[1].id,2
+simurai-orchestrator,default,master,simurai.events[1].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[1].name,DOOR_MOTION
-simurai-orchestrator,default,master,simurai.events[1].alias,DOOR_MOTION_V8
 simurai-orchestrator,default,master,simurai.events[1].format,JSON
-simurai-orchestrator,default,master,simurai.events[1].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[1].source,Walmart
 simurai-orchestrator,default,master,simurai.events[1].usage,Control the motion of the door
 simurai-orchestrator,default,master,simurai.events[1].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[2].id,3
+simurai-orchestrator,default,master,simurai.events[2].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[2].name,EXTRACTION_REQUEST
-simurai-orchestrator,default,master,simurai.events[2].alias,EXTRACTION_REQUEST_V8
 simurai-orchestrator,default,master,simurai.events[2].format,JSON
-simurai-orchestrator,default,master,simurai.events[2].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[2].source,Walmart
 simurai-orchestrator,default,master,simurai.events[2].usage,Request customer order totes to be delivered to a terminal for either automated or manual dispense
 simurai-orchestrator,default,master,simurai.events[2].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[3].id,4
+simurai-orchestrator,default,master,simurai.events[3].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[3].name,BATCH_DELIVERED
-simurai-orchestrator,default,master,simurai.events[3].alias,BATCH_DELIVERED_V8
 simurai-orchestrator,default,master,simurai.events[3].format,JSON
-simurai-orchestrator,default,master,simurai.events[3].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[3].source,Walmart
 simurai-orchestrator,default,master,simurai.events[3].usage,When a batch of containers has been delivered successfully to a customer at dispense door
 simurai-orchestrator,default,master,simurai.events[3].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[4].id,5
+simurai-orchestrator,default,master,simurai.events[4].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[4].name,DISPENSE_TERMINATED
-simurai-orchestrator,default,master,simurai.events[4].alias,DISPENSE_TERMINATED_V8
 simurai-orchestrator,default,master,simurai.events[4].format,JSON
-simurai-orchestrator,default,master,simurai.events[4].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[4].source,Walmart
 simurai-orchestrator,default,master,simurai.events[4].usage,When the customer has terminated dispense at a terminal
 simurai-orchestrator,default,master,simurai.events[4].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[5].id,6
+simurai-orchestrator,default,master,simurai.events[5].tenant,WALMART
 simurai-orchestrator,default,master,simurai.events[5].name,FAILURE_RESOLUTION
-simurai-orchestrator,default,master,simurai.events[5].alias,FAILURE_RESOLUTION_V8
 simurai-orchestrator,default,master,simurai.events[5].format,JSON
-simurai-orchestrator,default,master,simurai.events[5].category,Automated Dispense
 simurai-orchestrator,default,master,simurai.events[5].source,Walmart
 simurai-orchestrator,default,master,simurai.events[5].usage,Provides notification that a failure event sent through the "Failure Event" interface has been resolved
 simurai-orchestrator,default,master,simurai.events[5].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[6].id,7
+simurai-orchestrator,default,master,simurai.events[6].name,FETCH_EVENT
+simurai-orchestrator,default,master,simurai.events[6].source,Walmart
 
-
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,simurai
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[0].eventAlias,DOOR_STATUS_REQUEST_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[0].targetUrl,doorStatusRequestEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[1].eventAlias,DOOR_MOTION_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[1].targetUrl,doorMotionEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[2].eventAlias,EXTRACTION_REQUEST_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[2].targetUrl,orderExtractRequestEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[3].eventAlias,BATCH_DELIVERED_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[3].targetUrl,batchStatusDeliveredEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[4].eventAlias,DISPENSE_TERMINATED_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[4].targetUrl,dispenseTerminatedEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[5].eventAlias,FAILURE_RESOLUTION_V8
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].events[5].targetUrl,failureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,triggerEventEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].eventId,1
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].targetEndpoint,doorStatusRequestEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[1].eventId,2
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[1].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[1].targetEndpoint,doorMotionEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[2].eventId,3
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[2].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[2].targetEndpoint,orderExtractRequestEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[3].eventId,4
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[3].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[3].targetEndpoint,batchStatusDeliveredEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[4].eventId,5
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[4].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[4].targetEndpoint,dispenseTerminatedEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].eventId,6
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].targetEndpoint,failureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointname,fetchEventEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointEvents[0].eventId,7
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointEvents[0].actions,"direct:fetchEvents"
