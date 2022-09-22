@@ -47,6 +47,9 @@ simurai-orchestrator,default,master,simurai.endpoints[10].uri,kafka:alert-${stag
 simurai-orchestrator,default,master,simurai.endpoints[11].name,failureEventEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[11].type,TOPIC
 simurai-orchestrator,default,master,simurai.endpoints[11].uri,kafka:alert-${stage}-failure-event?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
+simurai-orchestrator,default,master,simurai.endpoints[12].name,portalFailureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[12].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[12].uri,kafka:alert-${stage}-failure-resolution?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
 
 simurai-orchestrator,default,master,simurai.events[0].id,1
 simurai-orchestrator,default,master,simurai.events[0].tenant,WALMART
@@ -121,6 +124,13 @@ simurai-orchestrator,default,master,simurai.events[10].format,JSON
 simurai-orchestrator,default,master,simurai.events[10].source,PORTAL
 simurai-orchestrator,default,master,simurai.events[10].usage,The Failure Event interface is used to notify Walmart of any issues with the dispense terminals
 simurai-orchestrator,default,master,simurai.events[10].errorQueue,mfc-source-error
+simurai-orchestrator,default,master,simurai.events[11].id,12
+simurai-orchestrator,default,master,simurai.events[11].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[11].name,FAILURE_RESOLUTION
+simurai-orchestrator,default,master,simurai.events[11].format,JSON
+simurai-orchestrator,default,master,simurai.events[11].source,PORTAL/T1
+simurai-orchestrator,default,master,simurai.events[11].usage,Provides notification that a failure event sent through the "Failure Event" interface has been resolved
+simurai-orchestrator,default,master,simurai.events[11].errorQueue,mfc-source-error
 
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,triggerEventEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].eventId,1
@@ -156,3 +166,6 @@ simurai-orchestrator,default,master,simurai.eventEndpointMappings[4].endpointEve
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[5].endpointname,failureEventEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[5].endpointEvents[0].eventId,11
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[5].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[6].endpointname,portalFailureResolutionEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[6].endpointEvents[0].eventId,12
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[6].endpointEvents[0].actions,"direct:log"
