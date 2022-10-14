@@ -1,6 +1,11 @@
 APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
 simurai-orchestrator,default,master,server.port,8093
-simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/*
+simurai-orchestrator,default,master,camel.servlet.mapping.context-path,/simurai/*
+simurai-orchestrator,default,master,server.servlet.context-path,/api
+
+simurai-orchestrator,default,master,management.endpoints.web.exposure.include,*
+simurai-orchestrator,default,master,management.endpoints.web.cors.allowed-origins,*
+simurai-orchestrator,default,master,management.endpoints.web.cors.allowed-methods,GET
 
 simurai-orchestrator,default,master,environment,stage
 simurai-orchestrator,default,master,facilityNum,5505
