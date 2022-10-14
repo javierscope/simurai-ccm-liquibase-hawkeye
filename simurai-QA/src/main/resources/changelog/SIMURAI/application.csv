@@ -1,0 +1,2 @@
+APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
+application,default,master,logging.level.com.scoperetail,DEBUG
