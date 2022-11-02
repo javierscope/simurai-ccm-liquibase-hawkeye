@@ -61,7 +61,7 @@ simurai-orchestrator,default,master,simurai.endpoints[13].type,GET
 simurai-orchestrator,default,master,simurai.endpoints[13].uri,resources
 simurai-orchestrator,default,master,simurai.endpoints[14].name,orderDropEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[14].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[14].uri,kafka:hawkeye-${stage}-${facilityNum}-order-drop?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[14].uri,kafka:hawkeye-${stage}-${facilityNum}-order-fulfillment?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
 simurai-orchestrator,default,master,simurai.endpoints[15].name,inventorySnapshotRequestEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[15].type,TOPIC
 simurai-orchestrator,default,master,simurai.endpoints[15].uri,kafka:hawkeye-${stage}-${facilityNum}-inventory-snapshot-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
