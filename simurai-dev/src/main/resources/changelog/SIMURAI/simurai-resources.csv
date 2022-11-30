@@ -1,0 +1,5 @@
+APPLICATION,PROFILE,LABEL,CONFIG_KEY,CONFIG_VALUE
+simurai-resources,default,master,server.port,8092
+simurai-resources,default,master,management.endpoints.web.exposure.include,*
+simurai-resources,default,master,management.endpoints.web.cors.allowed-origins,*
+simurai-resources,default,master,management.endpoints.web.cors.allowed-methods,GET
