@@ -75,6 +75,9 @@ simurai-orchestrator,default,master,simurai.endpoints[15].uri,kafka:hawkeye-${st
 simurai-orchestrator,default,master,simurai.endpoints[16].name,inventoryStateChangeRequestEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[16].type,TOPIC
 simurai-orchestrator,default,master,simurai.endpoints[16].uri,kafka:hawkeye-${stage}-${facilityNum}-inventory-state-change-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[17].name,productDataEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[17].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[17].uri,kafka:hawkeye-${stage}-${facilityNum}-catalog-data?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
 
 simurai-orchestrator,default,master,simurai.events[0].id,1
 simurai-orchestrator,default,master,simurai.events[0].tenant,WALMART
@@ -180,6 +183,13 @@ simurai-orchestrator,default,master,simurai.events[15].format,JSON
 simurai-orchestrator,default,master,simurai.events[15].source,Walmart
 simurai-orchestrator,default,master,simurai.events[15].usage,Request status change for the inventory in the MFC
 simurai-orchestrator,default,master,simurai.events[15].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[16].id,17
+simurai-orchestrator,default,master,simurai.events[16].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[16].name,PRODUCT_DATA
+simurai-orchestrator,default,master,simurai.events[16].format,JSON
+simurai-orchestrator,default,master,simurai.events[16].source,Walmart
+simurai-orchestrator,default,master,simurai.events[16].usage,When
+simurai-orchestrator,default,master,simurai.events[16].errorQueue,alert-${stage}-errors
 
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,triggerEventEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].eventId,1
@@ -230,3 +240,6 @@ simurai-orchestrator,default,master,simurai.eventEndpointMappings[6].endpointEve
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointname,resourceEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointEvents[0].eventId,13
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointEvents[0].actions,"direct:getResource"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].eventId,17
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].targetEndpoint,productDataEndpoint
