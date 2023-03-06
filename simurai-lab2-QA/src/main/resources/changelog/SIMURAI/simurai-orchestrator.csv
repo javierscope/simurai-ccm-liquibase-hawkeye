@@ -13,7 +13,6 @@ simurai-orchestrator,default,master,simurai.targets[1].versionUri,http://simurai
 simurai-orchestrator,default,master,simurai.targets[2].name,fusion-connect
 simurai-orchestrator,default,master,simurai.targets[2].versionUri,http://hawk-test-01:8080/actuator/info
 
-
 simurai-orchestrator,default,master,environment,stage
 simurai-orchestrator,default,master,facilityNum,5505
 simurai-orchestrator,default,master,stage,stage
@@ -66,7 +65,7 @@ simurai-orchestrator,default,master,simurai.endpoints[12].uri,kafka:alert-${stag
 simurai-orchestrator,default,master,simurai.endpoints[13].name,resourceEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[13].type,GET
 simurai-orchestrator,default,master,simurai.endpoints[13].uri,resources
-simurai-orchestrator,default,master,simurai.endpoints[14].name,orderDropEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[14].name,walmartOrderEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[14].type,TOPIC
 simurai-orchestrator,default,master,simurai.endpoints[14].uri,kafka:hawkeye-${stage}-${facilityNum}-order-fulfillment?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
 simurai-orchestrator,default,master,simurai.endpoints[15].name,inventorySnapshotRequestEndpoint
@@ -75,9 +74,30 @@ simurai-orchestrator,default,master,simurai.endpoints[15].uri,kafka:hawkeye-${st
 simurai-orchestrator,default,master,simurai.endpoints[16].name,inventoryStateChangeRequestEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[16].type,TOPIC
 simurai-orchestrator,default,master,simurai.endpoints[16].uri,kafka:hawkeye-${stage}-${facilityNum}-inventory-state-change-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
-simurai-orchestrator,default,master,simurai.endpoints[17].name,productDataEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[17].name,inventorySnapshotResponseEndpoint
 simurai-orchestrator,default,master,simurai.endpoints[17].type,TOPIC
-simurai-orchestrator,default,master,simurai.endpoints[17].uri,kafka:hawkeye-${stage}-${facilityNum}-catalog-data?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[17].uri,kafka:alert-${stage}-inventory-snapshot-response?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
+simurai-orchestrator,default,master,simurai.endpoints[18].name,productDataEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[18].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[18].uri,kafka:hawkeye-${stage}-${facilityNum}-catalog-data?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[19].name,loadExtractEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[19].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[19].uri,kafka:hawkeye-${stage}-${facilityNum}-load-extract-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[20].name,capacityUtilizationRequestEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[20].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[20].uri,kafka:hawkeye-${stage}-${facilityNum}-capacity-util-request?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.send}
+simurai-orchestrator,default,master,simurai.endpoints[21].name,inventoryEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[21].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[21].uri,kafka:alert-${stage}-misc-inventory-message-response?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
+simurai-orchestrator,default,master,simurai.endpoints[22].name,capacityUtilizationEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[22].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[22].uri,kafka:alert-${stage}-capacity-util-response?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
+simurai-orchestrator,default,master,simurai.endpoints[23].name,loadStatusEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[23].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[23].uri,kafka:alert-${stage}-load-status-response?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
+simurai-orchestrator,default,master,simurai.endpoints[24].name,mfcOrderEndpoint
+simurai-orchestrator,default,master,simurai.endpoints[24].type,TOPIC
+simurai-orchestrator,default,master,simurai.endpoints[24].uri,kafka:alert-${stage}-picking-events?brokers=${kafka.broker.url}:${kafka.broker.port}&${kafka.broker.options.receive}
 
 simurai-orchestrator,default,master,simurai.events[0].id,1
 simurai-orchestrator,default,master,simurai.events[0].tenant,WALMART
@@ -185,11 +205,109 @@ simurai-orchestrator,default,master,simurai.events[15].usage,Request status chan
 simurai-orchestrator,default,master,simurai.events[15].errorQueue,alert-${stage}-errors
 simurai-orchestrator,default,master,simurai.events[16].id,17
 simurai-orchestrator,default,master,simurai.events[16].tenant,WALMART
-simurai-orchestrator,default,master,simurai.events[16].name,PRODUCT_DATA
+simurai-orchestrator,default,master,simurai.events[16].name,INVENTORY_SNAPSHOT
 simurai-orchestrator,default,master,simurai.events[16].format,JSON
-simurai-orchestrator,default,master,simurai.events[16].source,Walmart
-simurai-orchestrator,default,master,simurai.events[16].usage,When
-simurai-orchestrator,default,master,simurai.events[16].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[16].source,MFC
+simurai-orchestrator,default,master,simurai.events[16].usage,In response to Inventory Snapshot Request
+simurai-orchestrator,default,master,simurai.events[16].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[17].id,18
+simurai-orchestrator,default,master,simurai.events[17].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[17].name,PRODUCT_DATA
+simurai-orchestrator,default,master,simurai.events[17].format,JSON
+simurai-orchestrator,default,master,simurai.events[17].source,Walmart
+simurai-orchestrator,default,master,simurai.events[17].usage,The interface is used for adding updating and deleting products aligned for fulfillment to the MFC
+simurai-orchestrator,default,master,simurai.events[17].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[18].id,19
+simurai-orchestrator,default,master,simurai.events[18].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[18].name,LOAD_EXTRACT
+simurai-orchestrator,default,master,simurai.events[18].format,JSON
+simurai-orchestrator,default,master,simurai.events[18].source,Walmart
+simurai-orchestrator,default,master,simurai.events[18].usage,When a load is ready to be extracted from the MFC for delivery
+simurai-orchestrator,default,master,simurai.events[18].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[19].id,20
+simurai-orchestrator,default,master,simurai.events[19].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[19].name,CAPACITY_UTILIZATION_REQUEST
+simurai-orchestrator,default,master,simurai.events[19].format,JSON
+simurai-orchestrator,default,master,simurai.events[19].source,Walmart
+simurai-orchestrator,default,master,simurai.events[19].usage,On demand based or as scheduled when capacity utilization information is required for assortment and replenishment planning
+simurai-orchestrator,default,master,simurai.events[19].errorQueue,alert-${stage}-errors
+simurai-orchestrator,default,master,simurai.events[20].id,21
+simurai-orchestrator,default,master,simurai.events[20].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[20].name,INVENTORY_ADJUSTMENT
+simurai-orchestrator,default,master,simurai.events[20].format,JSON
+simurai-orchestrator,default,master,simurai.events[20].source,MFC
+simurai-orchestrator,default,master,simurai.events[20].usage,: when an inventory quantity discrepancy is discovered in the MFC and is being reported to Walmart
+simurai-orchestrator,default,master,simurai.events[20].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[21].id,22
+simurai-orchestrator,default,master,simurai.events[21].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[21].name,CAPACITY_UTILIZATION
+simurai-orchestrator,default,master,simurai.events[21].format,JSON
+simurai-orchestrator,default,master,simurai.events[21].source,MFC
+simurai-orchestrator,default,master,simurai.events[21].usage,In response to capacity utilization request
+simurai-orchestrator,default,master,simurai.events[21].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[22].id,23
+simurai-orchestrator,default,master,simurai.events[22].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[22].name,LOAD_STATUS
+simurai-orchestrator,default,master,simurai.events[22].format,JSON
+simurai-orchestrator,default,master,simurai.events[22].source,MFC
+simurai-orchestrator,default,master,simurai.events[22].usage,When the status of load changes as it is extracted for delivery
+simurai-orchestrator,default,master,simurai.events[22].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[23].id,24
+simurai-orchestrator,default,master,simurai.events[23].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[23].name,INVENTORY_REMOVAL
+simurai-orchestrator,default,master,simurai.events[23].format,JSON
+simurai-orchestrator,default,master,simurai.events[23].source,MFC
+simurai-orchestrator,default,master,simurai.events[23].usage,when physical inventory is being removed from the MFC and handed over to Walmart for handling
+simurai-orchestrator,default,master,simurai.events[23].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[24].id,25
+simurai-orchestrator,default,master,simurai.events[24].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[24].name,INVENTORY_STATE_CHANGE
+simurai-orchestrator,default,master,simurai.events[24].format,JSON
+simurai-orchestrator,default,master,simurai.events[24].source,MFC
+simurai-orchestrator,default,master,simurai.events[24].usage,when inventory is placed on hold or taken off of hold in the MFC
+simurai-orchestrator,default,master,simurai.events[24].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[25].id,26
+simurai-orchestrator,default,master,simurai.events[25].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[25].name,DECANTING
+simurai-orchestrator,default,master,simurai.events[25].format,JSON
+simurai-orchestrator,default,master,simurai.events[25].source,MFC
+simurai-orchestrator,default,master,simurai.events[25].usage,as inventory is decanted.
+simurai-orchestrator,default,master,simurai.events[25].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[26].id,27
+simurai-orchestrator,default,master,simurai.events[26].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[26].name,REINDUCT
+simurai-orchestrator,default,master,simurai.events[26].format,JSON
+simurai-orchestrator,default,master,simurai.events[26].source,MFC
+simurai-orchestrator,default,master,simurai.events[26].usage,When inventory is reinducted after resolving an exception
+simurai-orchestrator,default,master,simurai.events[26].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[27].id,28
+simurai-orchestrator,default,master,simurai.events[27].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[27].name,PICK_BEGIN
+simurai-orchestrator,default,master,simurai.events[27].format,JSON
+simurai-orchestrator,default,master,simurai.events[27].source,MFC
+simurai-orchestrator,default,master,simurai.events[27].usage,When picking of an order starts
+simurai-orchestrator,default,master,simurai.events[27].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[28].id,29
+simurai-orchestrator,default,master,simurai.events[28].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[28].name,PICK_EVENT
+simurai-orchestrator,default,master,simurai.events[28].format,JSON
+simurai-orchestrator,default,master,simurai.events[28].source,MFC
+simurai-orchestrator,default,master,simurai.events[28].usage,The Pick Event interface notifies Walmart that any picking activity has occurred
+simurai-orchestrator,default,master,simurai.events[28].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[29].id,30
+simurai-orchestrator,default,master,simurai.events[29].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[29].name,PICK_COMPLETE
+simurai-orchestrator,default,master,simurai.events[29].format,JSON
+simurai-orchestrator,default,master,simurai.events[29].source,MFC
+simurai-orchestrator,default,master,simurai.events[29].usage,When picking of an order is completed
+simurai-orchestrator,default,master,simurai.events[29].errorQueue,mfc_source_error
+simurai-orchestrator,default,master,simurai.events[30].id,31
+simurai-orchestrator,default,master,simurai.events[30].tenant,WALMART
+simurai-orchestrator,default,master,simurai.events[30].name,PICK_ORDER_CANCEL
+simurai-orchestrator,default,master,simurai.events[30].format,JSON
+simurai-orchestrator,default,master,simurai.events[30].source,Walmart
+simurai-orchestrator,default,master,simurai.events[30].usage,The Order Cancel interface notifies the MFC that some or all of the lines for an order already sent via the “Order Drop” have been cancelled
+simurai-orchestrator,default,master,simurai.events[30].errorQueue,alert-${stage}-errors
 
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointname,triggerEventEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[0].eventId,1
@@ -210,15 +328,18 @@ simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEve
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].eventId,6
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].actions,"direct:triggerEvent"
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[5].targetEndpoint,failureResolutionEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[6].eventId,15
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[6].eventId,14
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[6].actions,"direct:triggerEvent"
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[6].targetEndpoint,inventorySnapshotRequestEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[7].eventId,16
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[6].targetEndpoint,walmartOrderEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[7].eventId,15
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[7].actions,"direct:triggerEvent"
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[7].targetEndpoint,inventoryStateChangeRequestEndpoint
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[8].eventId,14
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[7].targetEndpoint,inventorySnapshotRequestEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[8].eventId,16
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[8].actions,"direct:triggerEvent"
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[8].targetEndpoint,orderDropEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[8].targetEndpoint,inventoryStateChangeRequestEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[12].eventId,31
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[12].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[12].targetEndpoint,walmartOrderEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointname,fetchEventEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointEvents[0].eventId,7
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[1].endpointEvents[0].actions,"direct:fetchEvents"
@@ -240,6 +361,39 @@ simurai-orchestrator,default,master,simurai.eventEndpointMappings[6].endpointEve
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointname,resourceEndpoint
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointEvents[0].eventId,13
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[7].endpointEvents[0].actions,"direct:getResource"
-simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].eventId,17
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[8].endpointname,inventorySnapshotResponseEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[8].endpointEvents[0].eventId,17
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[8].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].eventId,18
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].actions,"direct:triggerEvent"
 simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[9].targetEndpoint,productDataEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[10].eventId,19
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[10].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[10].targetEndpoint,loadExtractEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[11].eventId,20
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[11].actions,"direct:triggerEvent"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[0].endpointEvents[11].targetEndpoint,capacityUtilizationRequestEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointname,inventoryEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[0].eventId,21
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[1].eventId,24
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[1].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[2].eventId,25
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[2].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[3].eventId,26
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[3].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[4].eventId,27
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[9].endpointEvents[4].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[10].endpointname,capacityUtilizationEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[10].endpointEvents[0].eventId,22
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[10].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[11].endpointname,loadStatusEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[11].endpointEvents[0].eventId,23
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[11].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointname,mfcOrderEndpoint
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[0].eventId,28
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[0].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[1].eventId,29
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[1].actions,"direct:log"
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[2].eventId,30
+simurai-orchestrator,default,master,simurai.eventEndpointMappings[12].endpointEvents[2].actions,"direct:log"
